@@ -10,7 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      //subkategori dimiliki oleh kategori dengan foreignKey parent_id
+     subCategory.belongsTo(models.category,{
+      as:'category',
+      foreignKey: 'parent_id'
+     })
+      //sub kategori memperjelas jenis barang yang berupa turunan dari kategori dengan foreignkey category_id
+     subCategory.hasMany(models.products,{
+      as:'products',
+      foreignKey:'category_id' 
+     })
     }
   }
   subCategory.init({

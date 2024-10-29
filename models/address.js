@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      //address yang berisikan alamat rumah dimiliki oleh users dengan foreignKey user_id
+      address.belongsTo(models.users,{
+        foreignKey:'user_id'
+      })
     }
   }
   address.init({

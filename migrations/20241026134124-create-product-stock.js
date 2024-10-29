@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      proudct_id: {
+      product_id: {
         type: Sequelize.INTEGER
       },
       size: {

@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      //payment_detail atau detail pembayaran dimiliki oleh order_items yang kita pesan dengan foreignKey order_id
+      payment_detail.belongsTo(models.order_item,{
+        as:'payment_order',
+        foreignKey:'order_id'
+      })
     }
   }
   payment_detail.init({
