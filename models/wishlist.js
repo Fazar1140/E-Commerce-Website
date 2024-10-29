@@ -10,7 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      //wishlist dimiliki oleh banyak user dengan foreignKey user_id
+      wishlist.belongsToMany(models.users,{
+        as:'users_wishlist',
+        foreignKey:'user_id'
+      })
+      //wishlist atau barang yang ingin kita beli memiliki banyak produk yang kita ingin beli,dengan foreignKey product_id
+      wishlist.hasMany(models.products,{
+        as:'products',
+        foreignKey:'product_id'
+      })
     }
   }
   wishlist.init({

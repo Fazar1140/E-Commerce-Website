@@ -10,7 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+
+      //cart_item dimiliki oleh cart dengan foreignKey cart_id
+      cart_item.belongsTo(models.cart,{
+        as:'cart_list',
+        foreignKey:'cart_id'
+      })
+      //cart_item memiliki banyak produk yang akan kita beli dengan foreignKey products_id
+      cart_item.belongsToMany(models.products,{
+        as:'cart_products',
+        foreignKey:'products_id'
+      })
+      //cart_item memiliki banyak produk stock yang berisikan detail harga,berat,dll dengan foreignKey product_stock_id
+      cart_item.belongsToMany(models.product_stock,{
+        as:'cart_products_details',
+        foreignKey:'product_stock_id'
+      })
     }
   }
   cart_item.init({
