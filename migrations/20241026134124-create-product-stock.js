@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       size: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL
       },
       price: {
         type: Sequelize.INTEGER
