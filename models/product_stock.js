@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   product_stock.init({
     product_id: DataTypes.INTEGER,
-    size: DataTypes.INTEGER,
+    size: DataTypes.DECIMAL,
     price: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER
   }, {
