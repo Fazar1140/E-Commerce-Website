@@ -9,12 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      product_id: {
-        type: Sequelize.INTEGER
-      },
-      user_id: {
-        type: Sequelize.INTEGER
-      },
       deleted_at: {
         type: Sequelize.DATE
       },
@@ -25,6 +19,13 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      product_wishlist_id:
+      { 
+        type:Sequelize.INTEGER
+      },
+      user_id:{
+        type:Sequelize.INTEGER
       }
     });
   },

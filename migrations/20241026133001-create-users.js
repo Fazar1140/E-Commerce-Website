@@ -21,6 +21,9 @@ module.exports = {
       telephone: {
         type: Sequelize.STRING
       },
+      password:{
+        type: Sequelize.STRING
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN
       },

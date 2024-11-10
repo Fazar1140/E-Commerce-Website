@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     //asosiasikan users has many address, dimana users memiliki banyak alamat dengan foreignKey user_id
       users.hasMany(models.address,{
         as:'address',
-        foreignkey:'user_id'
+        foreignKey:'user_id'
       })
     //asosiasikan users has many wishlist, users memiliki banyak barang yang akan ditambahkan ke keranjang dengan foreignKey user_id
       users.hasMany(models.wishlist,{
@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     telephone: DataTypes.STRING,
+    password: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN,
     isVerified: DataTypes.BOOLEAN
   }, {
