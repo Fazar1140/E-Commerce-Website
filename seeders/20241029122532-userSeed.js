@@ -13,6 +13,7 @@ function User(){
     username:faker.person.fullName(),
     email:faker.internet.email(),
     telephone:faker.phone.imei(),
+    password:faker.internet.password(),
     isAdmin:false,
     isVerified:false,
     createdAt:new Date(),

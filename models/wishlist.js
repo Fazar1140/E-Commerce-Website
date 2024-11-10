@@ -13,19 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       //wishlist dimiliki oleh banyak user dengan foreignKey user_id
       wishlist.belongsToMany(models.users,{
         as:'users_wishlist',
-        foreignKey:'user_id'
+        through:'user_id'
       })
       //wishlist atau barang yang ingin kita beli memiliki banyak produk yang kita ingin beli,dengan foreignKey product_id
-      wishlist.hasMany(models.products,{
+      wishlist.belongsToMany(models.products,{
         as:'products',
-        foreignKey:'product_id'
+        through:'product_wishlist_id'
       })
     }
   }
   wishlist.init({
-    product_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
-    deleted_at: DataTypes.DATE
+    deleted_at: DataTypes.DATE,
+     
   }, {
     sequelize,
     modelName: 'wishlist',

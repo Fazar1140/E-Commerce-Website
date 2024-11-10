@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       //produk dimiliki oleh banyak sub kategori dengan foreignKey category_id
       products.belongsToMany(models.subCategory,{
         as:'specific_category',
-        foreignKey:'category_id'
+        through:'category_id'
       })
 
       //produk memiliki banyak produk_stock dengan foreignKey product_id, produk_stock disini diartikan sebagai detail produk
@@ -22,10 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         as:'product_stock',
         foreignKey:'product_id'
       })
-      //produk dimiliki oleh banyak wishlist yang kita ingin belikan dengan foreign_key product_id
-      products.belongsToMany(models.wishlist,{
+      //produk dimiliki oleh banyak wishlist yang kita ingin belikan 
+      products.hasMany(models.wishlist,{
         as:'wishlist',
-        foreignKey:'product_id'
+        foreignKey:'product_wishlist_id'
       })
       //produk yang akan dimasukan ke keranjang banyak jumlahnya, yang kita simpan di cart-item sebagai perantara
       products.hasMany(models.cart_item,{
@@ -49,7 +49,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     short_description: DataTypes.STRING,
     cover: DataTypes.STRING,
-    category_id: DataTypes.INTEGER
+    
+    
   }, {
     sequelize,
     modelName: 'products',

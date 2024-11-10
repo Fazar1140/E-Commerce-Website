@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   payment_detail.init({
-    order_id: DataTypes.INTEGER,
+    
     amount: DataTypes.INTEGER,
     provider: DataTypes.STRING,
     status: DataTypes.ENUM('PENDING', 'DISPATCHED', 'OUT FOR DELIVERY', 'CANCELLED'),
