@@ -4,6 +4,6 @@ const subcategoryController = require('../contorllers/Subcategory.Controllers')
 const routes = express.Router();
 
 routes.get('/',subcategoryController.getAllSubcategories)
-routes.post('/',subcategoryController.createSubcategories)
+routes.post('/create',subcategoryController.createSubcategories)
 
 module.exports = routes
