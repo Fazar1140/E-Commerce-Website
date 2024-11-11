@@ -6,5 +6,5 @@ const routes = express.Router();
  
 //routes.get('/check-auth',verifyToken,authController.checkAuth)
 routes.get('/',categoryController.getAllCategories)
-routes.post('/',categoryController.createCategories)
+routes.post('/create',categoryController.createCategories)
 module.exports = routes;

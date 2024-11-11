@@ -20,6 +20,8 @@ try{
         username,
         email,
         telephone,
+        isAdmin:false,
+        isVerified:false,
         password : await bcrypt.hash(password,10)
     })
     const userInfo = getInfoProtected(createdUser)

@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const authRoutes = require('./routes/Auth')
+const UserRoutes = require('./routes/User')
 const AddressRoutes = require('./routes/Address')
 const CategoryRoutes = require('./routes/Category')
 const SubcategoryRoutes = require('./routes/Subcategory')
@@ -13,6 +14,7 @@ const OrderItemRoutes = require('./routes/OrderItem')
 const PaymentRoutes = require('./routes/PaymentDetails')
 const OrderDetailRoutes = require('./routes/OrderDetails')
 const ReviewRoutes = require('./routes/Review')
+ 
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -28,6 +30,7 @@ app.use(cookieParser())
 const port = process.env.PORT || 5000
  
 app.use('/Auth',authRoutes)
+app.use('/User',UserRoutes)
 app.use('/Address',AddressRoutes)
 app.use('/Category',CategoryRoutes)
 app.use('/Subcategory',SubcategoryRoutes)
@@ -40,6 +43,7 @@ app.use('/OrderItem',OrderItemRoutes)
 app.use('/PaymentDetail',PaymentRoutes)
 app.use('/OrderDetail',OrderDetailRoutes)
 app.use('/Reviews',ReviewRoutes)
+ 
 
 app.get('/',(req,res)=>{
     res.send('testing')
