@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
       //produk memiliki banyak produk_stock dengan foreignKey product_id, produk_stock disini diartikan sebagai detail produk
       products.hasMany(models.product_stock,{
-        as:'product_stock',
+         
         foreignKey:'product_id'
       })
       //produk dimiliki oleh banyak wishlist yang kita ingin belikan 

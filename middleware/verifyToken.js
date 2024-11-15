@@ -4,6 +4,8 @@ const {getInfoProtected} = require('./getInfoProtected')
 
 exports.verifyToken = (req,res,next)=>{
     try{
+        
+        
         const {token} = req.cookies
 
         if(!token){
@@ -11,6 +13,7 @@ exports.verifyToken = (req,res,next)=>{
         }
 
         const decodeInfo = jwt.verify(token,process.env.SECRET_KEY)
+        
 
         if(decodeInfo && decodeInfo.id && decodeInfo.email){
             req.user=decodeInfo
@@ -19,6 +22,8 @@ exports.verifyToken = (req,res,next)=>{
         else{
             return res.status(401).json({message:'invalid token,please log in again!'})
         }
+    
+    
     }catch(err){
         console.log(err)
 
