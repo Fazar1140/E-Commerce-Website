@@ -24,6 +24,8 @@ exports.getPutUser = async(req,res)=>{
 exports.patchUser = async(req,res)=>{
     
     try{
+        let newPath = req.file;
+        
         if(req.file){
             const {originalname,path} = req.file
             console.log(path)
@@ -32,12 +34,17 @@ exports.patchUser = async(req,res)=>{
             newPath = path+'.'+ext
             console.log(newPath)
             fs.renameSync(path,newPath)
+
         }
          
         const id = req.params.id
         const {username,password,telephone} = req.body;
+
+        const aPath = newPath.substring(0,13)
+        const fixedPath = newPath.substring(aPath.length,newPath.length)
+        
         const patchUser = await users.update({
-            avatar:newPath,
+            avatar:fixedPath,
             username,
             telephone,
             password:await bcrypt.hash(password,10)
