@@ -18,13 +18,27 @@
                     <p><%= getProducts.description %></p>
                     <p><%= getProducts.short_description %></p>
                     
-                    <h5>Jumlah stok = <%= getProducts.product_stocks[0].size %> kg</h5>
-                    <h1>Rp <%= getProducts.product_stocks[0].price %></h1>
-                    <h2>Jumlah stok = <%= getProducts.product_stocks[0].quantity %></h2>
-                     
+                    <% if (user.isAdmin) { %>
+                         
+                  
+                         <h5>Jumlah stok = <%= getProducts.product_stocks[0].size %> kg</h5>
+                        <h1>Rp <%= getProducts.product_stocks[0].price %></h1>
+                        <h2>Jumlah stok = <%= getProducts.product_stocks[0].quantity %></h2>
 
-                    <button type="button" class="btn btn-outline-primary">Beli</button>
-                    <button type="button" class="btn btn-primary">Masukan ke keranjang</button>
+                        <button type="button" class="btn btn-outline-primary"><a href='/editProduct/<%=getProducts.id%>'>Edit deskripsi barang</a></button>
+                        <button type="button" class="btn btn-outline-primary"><a href='/ProductStock/<%=getProducts.id%>'>edit perlengkapan barang</a></button>
+                        
+                        <p></p>
+
+                    <%} else { %>
+                        
+                        <h5>Jumlah stok = <%= getProducts.product_stocks[0].size %> kg</h5>
+                        <h1>Rp <%= getProducts.product_stocks[0].price %></h1>
+                        <h2>Jumlah stok = <%= getProducts.product_stocks[0].quantity %></h2>
+                    <%}%>
+
+                    <button type="button" class="btn btn-outline-primary">Masukan ke keranjang</button>
+                    <button type="button" class="btn btn-primary">wishlist</button>
 
                 </div>
              

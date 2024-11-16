@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
-const {products,Sequelze,product_stock} = require('../models');
+const {products,Sequelze,product_stock,subCategory} = require('../models');
 const {Op} = require('sequelize');
+const fs = require('fs');
+
+const subcategory = require('../models/subcategory');
  
 
 exports.getAllProducts = async(req,res)=>{
@@ -72,22 +75,50 @@ exports.getById = async(req,res)=>{
         console.log(req.user)
         const getProducts = await products.findByPk(id,{include:product_stock});
         //res.status(200).send(getProducts)
+      
         res.render('product_details',{getProducts,user})
     }
 
 }
 exports.createProduct = async(req,res)=>{
-    const {name,description,short_description,cover,category_id} = req.body;
-    
+    const {name,description,short_description,category_id,price,size,quantity} = req.body;
+    let newPath = null;
+
+    if(req.file){
+        const {originalname,path} = req.file
+        console.log(path)
+        const parts = originalname.split('.')
+        const ext = parts[parts.length - 1]
+        newPath = path+'.'+ext
+        console.log(newPath)
+        fs.renameSync(path,newPath)
+    }
+
+
+    const aPath = newPath.substring(0,13)
+    const fixedPath = newPath.substring(aPath.length,newPath.length)
+    console.log(fixedPath);
     const makeProduct = await products.create({
+        
         name,
         description,
         short_description,
-        cover,
-        category_id,
-     
+        cover:fixedPath,
+        category_id,     
     })
-    res.status(201).send(makeProduct)
+
+    const makeProductStock = await product_stock.create({
+        price,
+        size,
+        quantity
+    })
+    //res.status(201).send(makeProduct)
+    res.redirect('/')
+}
+exports.createProductProvider = async(req,res)=>{
+    const user = req.user;
+    const subcategory = await subCategory.findAll();
+    res.render('createProduct',{user,subcategory})
 }
 exports.patchProduct = async(req,res)=>{
     
@@ -99,11 +130,11 @@ exports.patchProduct = async(req,res)=>{
             const update = await products.update({
                 name,description,short_description,cover,category_id
             },{where:{id:id}})
-    
+            const user = req.user
+
+            const getProducts = await products.findByPk(req.params.id,{include:product_stock})
             if(update == 1){
-                res.send({
-                    message:'products was updated successfully'
-                });
+                    res.render('product_details',{getProducts,user})
             }else{
                 res.send({
                     message:`cannot update products, something is wrong with inputing products`
@@ -113,7 +144,11 @@ exports.patchProduct = async(req,res)=>{
             console.log(err)
             res.status(500).json({message:'error in updating products,try again later'})
         }
-    
+}
+exports.getProductId = async(req,res)=>{
+    const getProducts = await products.findByPk(req.params.id)
+    const user = req.user 
+    res.render('editProductDetails',{getProducts,user})
 }
 exports.deleteProduct = async(req,res)=>{
     try{
@@ -132,8 +167,6 @@ exports.deleteProduct = async(req,res)=>{
 }
 
 exports.searchProduct = async(req,res)=>{
-    
-
        
     const {token} = req.cookies;
     console.log(req.cookies)

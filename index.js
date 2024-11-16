@@ -42,7 +42,7 @@ const port = process.env.PORT || 5000
  
 app.use('/',ProductsRoutes)
 app.use('/images',imageRoutes)
-app.use('/avatar/views/uploads',avatarRoutes)
+app.use('/avatar',avatarRoutes)
 app.use('/CarouselImage',CarouselImageRoutes)
 app.use('/Auth',authRoutes);
 app.use('/User',UserRoutes)

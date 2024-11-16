@@ -1,4 +1,4 @@
-const {product_stock,Sequelze} = require('../models');
+const {product_stock,Sequelze,products} = require('../models');
 
 exports.getAllProductStock = async(req,res)=>{
     const getProductStock = await product_stock.findAll();
@@ -6,9 +6,11 @@ exports.getAllProductStock = async(req,res)=>{
 }
 exports.getById = async(req,res)=>{
     const id = req.params.id;
+    const user = req.user 
     console.log(id)
-    const getProducts = await product_stock.findByPk(id);
-    res.status(200).send(getProducts)
+    const getProducts = await products.findByPk(id,{include:product_stock});
+    
+    res.render('EditStock',{getProducts,user})
 }
 exports.createProductStock = async(req,res)=>{
     const {size,price,quantity} = req.body;
@@ -30,10 +32,9 @@ exports.patchProductStock = async(req,res)=>{
                 size,price,quantity
             },{where:{id:id}})
     
+            
             if(update == 1){
-                res.send({
-                    message:'product stock was updated successfully'
-                });
+                res.redirect(`/${id}`)
             }else{
                 res.send({
                     message:`cannot update product stock, something is wrong with inputing product stock`

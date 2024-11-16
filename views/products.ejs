@@ -35,10 +35,10 @@
           
     <div class="container-fluid mt-3 ">
         
-        <div class="row d-flex justify-content-center"> 
+        <div class="row d-flex p-2"> 
             <% for (let i = 0; i < getProducts.length; i++) { %>
       
-                <div class="col-sm-2 border border-secondary" style="margin: 10px; display: flex; justify-content: center;align-items: center;"> 
+                <div class="col-2 border border-secondary" style="margin: 10px; display: flex; justify-content: center;align-items: center;"> 
                 <a href='<%= getProducts[i].id %>' style="text-decoration: none;color: black;"> 
                 <h3><%= getProducts[i].name %></h3> 
                 <img style="width: 40%;height: 40%;" src="images/<%= getProducts[i].cover %>">
@@ -48,9 +48,16 @@
                     <p><%= getProducts[i].description.substring(0,50) %></p>
                 <% } %>
                 </a>
-            </div>
+              </div>
+              <% } %>
               
-            <% } %> 
+              <% if(user.isAdmin) { %>
+                <a href="/create" style="text-decoration: none;color: black;"> 
+                <div class="col-sm-2 border border-secondary" style="display: flex; justify-content: center;align-items: center;"> 
+                  <img width="100%" height="100%" src="images/plus.png">
+                </div>
+              </a>
+              <% } %>
         </div>   
         
     </div>
