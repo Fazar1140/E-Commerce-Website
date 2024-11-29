@@ -10,7 +10,7 @@ let orderDetailsLength = 5;
 const payArray = []
 
 for(let i = 0 ; i < orderDetailsLength;i++){
-  payArray.push(faker.number.int({min:1,max:3}) * faker.number.int({min:10000,max:20000}));
+  payArray.push(faker.number.int({min:1,max:3}) * faker.number.int({min:100,max:3000}));
 }
 
 function orderDetails(){
@@ -18,7 +18,7 @@ function orderDetails(){
   payIncrement = payIncrement + 1;
   return{
     user_id : faker.number.int({min:1,max:5}),
-    payment_id : payIncrement,
+    
     total: payArray[payIncrement-1],
     createdAt:new Date(),
     updatedAt:new Date(),

@@ -23,7 +23,7 @@ try{
    
 
     const createdUser = await users.create({
-        avatar:'views/uploads/default.jpg',
+        avatar:'/default.jpg',
         username,
         email,
         telephone,

@@ -10,7 +10,7 @@ const password = '12345678';
 function User(){
   
   return{
-    avatar:'views/uploads/default.jpg',
+    avatar:'/default.jpg',
     username:faker.person.fullName(),
     email:faker.internet.email(),
     telephone:faker.phone.imei(),
@@ -25,7 +25,7 @@ function User(){
 function UserAdmin(){
   
   return{
-    avatar:'views/uploads/default.jpg',
+    avatar:'/default.jpg',
     username:faker.person.fullName(),
     email:faker.internet.email(),
     telephone:faker.phone.imei(),

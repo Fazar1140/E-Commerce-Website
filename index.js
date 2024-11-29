@@ -39,7 +39,8 @@ app.use(cookieParser())
 
 const port = process.env.PORT || 5000
  
- 
+
+
 app.use('/',ProductsRoutes)
 app.use('/images',imageRoutes)
 app.use('/avatar',avatarRoutes)

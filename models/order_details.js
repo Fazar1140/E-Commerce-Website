@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       //order_details berupa detail produk memiliki banyak order_item yang kita pesan dengan foreignKey order_id,
       order_details.hasMany(models.order_item,{
-        as:'order_item_detail',
+        
         foreignKey:'order_id'
       })
     }

@@ -1,12 +1,13 @@
 const express = require('express')
 
 const WishlistControllers = require('../contorllers/Wishlist.Controllers')
+const {verifyToken} = require('../middleware/verifyToken')
 
 const routes = express.Router()
 
-routes.post('/create',WishlistControllers.createWishlist)
-routes.get('/',WishlistControllers.findAllWishlist)
+routes.post('/create/:id',verifyToken,WishlistControllers.createWishlist)
+routes.get('/list',verifyToken,WishlistControllers.findAllWishlist)
 routes.patch('/:id',WishlistControllers.updateWishlist)
-routes.delete('/:id',WishlistControllers.deleteWishlist)
+routes.post('/delete/:id',verifyToken,WishlistControllers.deleteWishlist)
 
 module.exports = routes

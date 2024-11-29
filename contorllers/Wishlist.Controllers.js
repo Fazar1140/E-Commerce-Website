@@ -1,17 +1,33 @@
-const {wishlist,Sequelize} = require('../models')
-exports.findAllWishlist = async(req,res)=>{
-    const findWishlist = await wishlist.findAll();
-    res.status(200).send(findWishlist)
-}
+const {wishlist,Sequelize,products} = require('../models')
+
 
 exports.createWishlist = async(req,res)=>{
-    const {product_wishlist_id,user_id} = req.body
-    
-    const createWishlist = await wishlist.create({
-        product_wishlist_id,user_id}
+   
+
+    const id = req.user.id 
+    const product_id = req.params.id
+
+    const wishChecker = await wishlist.findOne({where:{product_wishlist_id:product_id,user_id:id}}) 
+
+    if(wishChecker){
+        return res.status(400).json('error : product is already wishlist!')
+    }
+    console.log(product_id)
+    const createWishlist = await wishlist.create(
+        {product_wishlist_id:product_id,user_id:id}
     )
     
-    res.status(200).send(createWishlist)
+    res.redirect(`/${product_id}`)
+    
+    //res.status(200).send(createWishlist)
+}
+
+exports.findAllWishlist = async(req,res)=>{
+    const Wishlist = await wishlist.findAll();
+    const getProducts = await products.findAll();
+    const user = req.user;
+    res.render('wishlist',{Wishlist,getProducts,user})
+    
 }
 exports.updateWishlist = async(req,res)=>{
         
@@ -42,12 +58,12 @@ exports.deleteWishlist= async(req,res)=>{
     try{
         const id = req.params.id
         const deleted = await wishlist.destroy({where:{id:id}})
+        const Wishlist = await wishlist.findAll();
+        const getProducts = await products.findAll();
+        const user = req.user;
         
-        if(deleted==1){
-            res.status(200).json('the wishlist vwas deleted successfully')
-        }else{
-            res.status(400).json('cant delete the wishlist')
-        }
+        res.redirect('/')
+
     }catch(err){
         console.log(err)
         res.status(500).json({message:'error in deleting wishlist,try again later!'})

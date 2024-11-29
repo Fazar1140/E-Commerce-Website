@@ -32,19 +32,18 @@ exports.patchUser = async(req,res)=>{
             const parts = originalname.split('.')
             const ext = parts[parts.length - 1]
             newPath = path+'.'+ext
-            console.log(newPath)
             fs.renameSync(path,newPath)
 
+           
         }
          
+        const vuPath = newPath.substring(0,13);
+        const finalPath = newPath.substring(vuPath.length,newPath.length)
+        
         const id = req.params.id
         const {username,password,telephone} = req.body;
-
-        const aPath = newPath.substring(0,13)
-        const fixedPath = newPath.substring(aPath.length,newPath.length)
-        
         const patchUser = await users.update({
-            avatar:fixedPath,
+            avatar:finalPath,
             username,
             telephone,
             password:await bcrypt.hash(password,10)

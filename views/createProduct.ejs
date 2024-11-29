@@ -26,23 +26,23 @@
            
         </div>
       
-        <!-- Password input -->
+       
         <div data-mdb-input-init class="form-outline mb-4">
             <label class="description" for="description">deskripsi : </label>
           <textarea type="description" name='description' id="form2Example2" class="form-control" ></textarea>
           
         </div>
         
-        <!-- username input -->
+       
         <div data-mdb-input-init class="form-outline mb-4">
             <label class="short_description" for="short_description">deskripsi singkat : </label>
           <input type="short_description" name='short_description' id="form2Example1" class="form-control"  />
            
         </div>
       
-        <!-- telephone input -->
+        
         <div data-mdb-input-init class="form-outline mb-4">
-        <label class="username" for="username">pilih kategori : </label>
+        <label class="category" for="category">pilih kategori : </label>
           <select name="category_id" id="subcategory">
                 <% for(var i = 0 ; i < subcategory.length; i++) { %>
                     <option value="<%=subcategory[i].id %>"><%= i %> . <%= subcategory[i].name %></option>
@@ -67,7 +67,7 @@
             </div>
 
       
-        <!-- 2 column grid layout for inline styling -->
+       
         <div class="row mb-4">
           <div class="col d-flex justify-content-center">
             
@@ -76,9 +76,9 @@
            
         </div>
       
-        <!-- Submit button -->
+       
         <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Edit!</button>
-      
+      </form>
      
 </body>
 </html>

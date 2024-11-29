@@ -10,6 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       order_id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
         type: Sequelize.INTEGER
       },
       amount: {

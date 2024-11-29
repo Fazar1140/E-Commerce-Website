@@ -18,13 +18,13 @@
                 <form action="/ProductStock/<%= getProducts.id %>" method="post">
                     <div data-mdb-input-init class="form-outline mb-4">
                     <label for="size">size : </label>
-                    <input type="number" min=0 max=10 name='size' class="form-control" id="form-control" value="<%= getProducts.product_stocks[0].size %>">  
+                    <input type="text"  name='size' class="form-control" id="form-control" value="<%= getProducts.product_stocks[0].size %>">  
                      
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-4">
                     <label for="quantity">quantity : </label> 
-                    <input type="number" min="0" max="100" name='quantity' class="form-control" id="form-control" value="<%= getProducts.product_stocks[0].quantity%>"></textarea>
+                    <input type="number" min="1" max="100" name='quantity' class="form-control" id="form-control" value="<%= getProducts.product_stocks[0].quantity%>"></textarea>
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-4">

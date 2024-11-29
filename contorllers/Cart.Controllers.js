@@ -1,16 +1,28 @@
-const {cart,Sequelize} = require('../models')
+const {cart,Sequelize,cart_item,products,product_stock} = require('../models')
 
 exports.getCarts = async(req,res)=>{
-    const getCarts = await cart.findAll()
-    res.status(201).send(getCarts)
+    const getCarts = await cart.findAll({include:cart_item})
+    const getCartItem = await cart_item.findAll();
+    const getProducts = await products.findAll({include:product_stock});
+    const user = req.user;
+
+    res.render('Cart',{getCarts,getCartItem,getProducts,user})
+    
 }
 
 exports.createCarts = async(req,res)=>{
     const {user_id,total} = req.body;
+    const id = req.params.id
+    const users = req.user.id
+
     const createCarts = await cart.create(
-        {user_id,total}
+        {user_id:users,total}
     )
-    res.status(201).send(createCarts)
+    
+    const createCartItem = await cart_item.create(
+        {cart_id:cart.id,products_id:id,product_stock_id:id}
+    )
+    res.redirect('/')
 }
 exports.patchCarts = async(req,res)=>{
     try{ 
@@ -39,7 +51,7 @@ exports.deleteCart= async(req,res)=>{
         const deleted = await cart.destroy({where:{id:id}})
         
         if(deleted==1){
-            res.status(200).json('the cart was deleted successfully')
+            res.redirect('/')
         }else{
             res.status(400).json('cant delete the cart')
         }

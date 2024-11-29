@@ -13,6 +13,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       payment_id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
         type: Sequelize.INTEGER
       },
       total: {

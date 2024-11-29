@@ -10,6 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       cart_id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
         type: Sequelize.INTEGER
       },
       products_id: {

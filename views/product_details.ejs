@@ -18,28 +18,40 @@
                     <p><%= getProducts.description %></p>
                     <p><%= getProducts.short_description %></p>
                     
+                    <% if(getProducts.product_stocks[0].quantity > 1) { %>
+                    <form method="POST" action="/Cart/create/<%= getProducts.id %>"> 
+                        <input name='total' type="number" min=0 max=<%=getProducts.product_stocks[0].quantity%> style='width: 10%;' name='size' class="form-control" id="form-control" required>
+                        <button type="submit" class="btn btn-outline-primary">Masukan ke keranjang</button>
+                        </form>
+                        <form method="POST" action="/Wishlist/create/<%= getProducts.id %>" >
+                        <br>
+                        <button type="submit" class="btn btn-primary">wishlist</button>
+                    </form>
+                    <% } else { %>
+                        <h1 class="">Barang habis!</h1>
+                    <%}%>
+
                     <% if (user.isAdmin) { %>
                          
                   
-                         <h5>Jumlah stok = <%= getProducts.product_stocks[0].size %> kg</h5>
+                         <h5>Berat = <%= getProducts.product_stocks[0].size %> kg</h5>
                         <h1>Rp <%= getProducts.product_stocks[0].price %></h1>
                         <h2>Jumlah stok = <%= getProducts.product_stocks[0].quantity %></h2>
 
                         <button type="button" class="btn btn-outline-primary"><a href='/editProduct/<%=getProducts.id%>'>Edit deskripsi barang</a></button>
                         <button type="button" class="btn btn-outline-primary"><a href='/ProductStock/<%=getProducts.id%>'>edit perlengkapan barang</a></button>
                         
-                        <p></p>
+                        
 
                     <%} else { %>
                         
-                        <h5>Jumlah stok = <%= getProducts.product_stocks[0].size %> kg</h5>
-                        <h1>Rp <%= getProducts.product_stocks[0].price %></h1>
+                        <h5>Berat = <%= getProducts.product_stocks[0].size %> kg</h5>
+                        <h1>$ <%= getProducts.product_stocks[0].price %></h1>
+                        <% if(getProducts.product_stocks[0].quantity > 1) { %>
                         <h2>Jumlah stok = <%= getProducts.product_stocks[0].quantity %></h2>
+                        <% } %>
                     <%}%>
-
-                    <button type="button" class="btn btn-outline-primary">Masukan ke keranjang</button>
-                    <button type="button" class="btn btn-primary">wishlist</button>
-
+ 
                 </div>
              
                 <div class="col">

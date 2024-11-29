@@ -10,7 +10,7 @@ let paymentDetailsLength = 5;
 function paymentDetails(){
   orderIdIncrement = orderIdIncrement + 1
   return{
-    order_id : orderIdIncrement,
+  
     amount :payArray.payArray[orderIdIncrement-1],
     provider : 'NON',
     status: 'PENDING',

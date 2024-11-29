@@ -74,7 +74,7 @@ exports.getById = async(req,res)=>{
         const user = req.user
         console.log(req.user)
         const getProducts = await products.findByPk(id,{include:product_stock});
-        //res.status(200).send(getProducts)
+        
       
         res.render('product_details',{getProducts,user})
     }

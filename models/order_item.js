@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       })
       //order_item dimiliki oleh order Details, yang menjelaskan detail barang dengan foreignKey order_id
       order_item.belongsTo(models.order_details,{
-        as:'order_item_details',
+      
         foreignKey:'order_id'
       })
       //order_item memiliki payment_details, memberikan rincian detail pembelian dengan foreignKey order_id

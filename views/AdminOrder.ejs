@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link 
+    href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
+    rel="stylesheet"  type='text/css'>
+ 
+  </head>
+<body>    
+     
+    <div class="container-fluid mt-3">
+        <h1>Order Panel!</h1>
+        <div class="container-fluid m-5 pr-5">
+            <div class="container-fluid m-5 pr-5">
+                <div class="container-fluid m-5 pr-5 ">
+                    <div class="container-fluid m-5 pr-5" style="border: 1px solid black; width: 70%; height: 1000px; overflow-y: scroll;">
+                        <% for(let i = 0 ; i < getOrderDetail.length;i++) { %>
+                            <div class="col">
+                               
+                                <% for (let j = 0 ; j < getProducts.length; j++) { %>
+                                    
+                                    <% if(getOrderDetail[i].order_items[0].products_id == getProducts[j].id) { %>
+                                    <div class="row"> 
+                                        <div class="col-3"> 
+                                        <img src="../images/<%= getProducts[j].cover %>" width="200" height="200">
+                                        </div>
+                                        <div class="col"> 
+                                        <h1><%=getProducts[j].name%></h1>  
+
+                                        <h5>Total <%= getOrderDetail[i].total %></h5>
+
+                                        <%for (let x = 0 ; x < getUser.length;x++) { %>
+                                            <% if(getUser[x].id == getOrderDetail[i].user_id) { %>
+                                                <h5>Dibeli oleh user : <%=getUser[x].username%></h5>
+                                            <% } %>
+                                        <% } %>
+                                       
+                
+                                        
+                                        <form method="POST" action="/OrderItem/edit/<%=getOrderDetail[i].id%>">
+                                            <label class="status" for="status" >ubah status : </label>
+                                            <select name="status" id="status">
+
+                                                <option value="PENDING">PENDING</option>
+                                                <option value="DISPATCHED">DISPATCHED</option>
+                                                <option value="OUT FOR DELIVERY">OUT FOR DELIVERY</option>
+                                                <option value="CANCELLED">CANCELLED</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-outline-primary"> submit </button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                <% } %>
+                                <h5>Jumlah barang : <%= getOrderDetail[i].order_items[0].quantity %></h5>
+                                <% for (let z = 0 ; z < getPaymentDetail.length; z++) { %>
+                                    <% if(getOrderDetail[i].id == getPaymentDetail[z].id) { %> 
+                                        <div class="col-2 m-0"> 
+                                            <span class="badge bg-success"> Provider : <%=getPaymentDetail[z].provider%> </span>
+                                            <span class="badge bg-primary">  Status : <%=getPaymentDetail[z].status%> </span>
+                                            <span class="badge bg-danger">pembayaran : <%=getPaymentDetail[z].payment_mode%></span>
+ 
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

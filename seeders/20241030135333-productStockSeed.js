@@ -15,14 +15,14 @@ module.exports = {
    await queryInterface.bulkInsert('product_stocks',[{
      
     size:0.5,
-    price:4000,
+    price:1,
     quantity:30,
     createdAt:new Date(),
     updatedAt:new Date()
    },
    { 
     size:0.3,
-    price:6000,
+    price:2,
     quantity:10,
     createdAt:new Date(),
     updatedAt:new Date()
@@ -30,7 +30,7 @@ module.exports = {
    {
     
     size:0.7,
-    price:100000,
+    price:10,
     quantity:13,
     createdAt:new Date(),
     updatedAt:new Date()
@@ -38,49 +38,49 @@ module.exports = {
    {
    
     size:2,
-    price:1400000,
+    price:100,
     quantity:3,
     createdAt:new Date(),
     updatedAt:new Date()
    },{
     
     size:1,
-    price:9400000,
+    price:2000,
     quantity:10,
     createdAt:new Date(),
     updatedAt:new Date()
    },{
    
     size:1,
-    price:400000,
+    price:30,
     quantity:5,
     createdAt:new Date(),
     updatedAt:new Date()
    },{
    
     size:0.4,
-    price:40000000,
+    price:3999,
     quantity:5,
     createdAt:new Date(),
     updatedAt:new Date()
    },{
    
     size:2,
-    price:700000,
+    price:50,
     quantity:12,
     createdAt:new Date(),
     updatedAt:new Date()
    },{
      
     size:1.2,
-    price:70000,
+    price:10,
     quantity:13,
     createdAt:new Date(),
     updatedAt:new Date()
    },{
     
     size:1.6,
-    price:90000,
+    price:8,
     quantity:4,
     createdAt:new Date(),
     updatedAt:new Date()
