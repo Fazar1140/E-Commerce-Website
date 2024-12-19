@@ -86,3 +86,21 @@ exports.deleteById = async(req,res)=>{
         res.status(500).json({message:'error in deleting address,try again later!'})
     }
 }
+exports.addressProvider = async(req,res)=>{
+    const id = req.user.id;
+
+    const userAddress = await address.findOne({where:{user_id:id}})
+     
+    res.render('Address',{userAddress});
+}
+
+exports.addressEdit = async(req,res)=>{
+    const id = req.user.id;
+    const {title,address_line,country,city,postal_code,landmark,phone_number} = req.body
+    const editAddress = await address.update({
+        title,address_line,country,city,postal_code,landmark,phone_number
+    },{where:{user_id:id}})
+
+    res.redirect('/')
+    
+}

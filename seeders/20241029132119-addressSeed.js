@@ -32,7 +32,7 @@ module.exports = {
      * }], {});
     */
 
-    await queryInterface.bulkInsert('addresses',faker.helpers.multiple(Address,{count:3}), {});
+    await queryInterface.bulkInsert('addresses',faker.helpers.multiple(Address,{count:4}), {});
   },
   
 

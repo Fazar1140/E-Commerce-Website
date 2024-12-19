@@ -1,5 +1,5 @@
 
-const {users,Sequelize,products,product_stock} = require('../models');
+const {users,Sequelize,address,products,product_stock} = require('../models');
 
 const bcrypt = require('bcryptjs');
 const {getInfoProtected} = require('../middleware/getInfoProtected');
@@ -30,6 +30,10 @@ try{
         isAdmin:false,
         isVerified:false,
         password : await bcrypt.hash(password,10)
+    })
+
+    const createAddress = await address.create({
+        user_id : createdUser.id
     })
     // const userInfo = getInfoProtected(createdUser)
 

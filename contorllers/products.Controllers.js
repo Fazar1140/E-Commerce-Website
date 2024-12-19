@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {products,Sequelze,product_stock,subCategory} = require('../models');
+const {products,Sequelze,product_stock,subCategory,category} = require('../models');
 const {Op} = require('sequelize');
 const fs = require('fs');
 
@@ -56,7 +56,10 @@ exports.getById = async(req,res)=>{
         const user = {}
         const getProducts = await products.findByPk(id,{include:product_stock});
         //res.status(200).send(getProducts)
-        res.render('product_details',{getProducts,user})
+        const getSubcategory = await subCategory.findByPk(getProducts.category_id);
+        const getCategory = await category.findByPk(getSubcategory.parent_id)
+        
+        res.render('product_details',{getProducts,user,getSubcategory,getCategory})
       
     }else{
        const decodeInfo = jwt.verify(token,process.env.SECRET_KEY)
@@ -75,8 +78,10 @@ exports.getById = async(req,res)=>{
         console.log(req.user)
         const getProducts = await products.findByPk(id,{include:product_stock});
         
-      
-        res.render('product_details',{getProducts,user})
+        const getSubcategory = await subCategory.findByPk(getProducts.category_id);
+        const getCategory = await category.findByPk(getSubcategory.parent_id)
+        
+        res.render('product_details',{getProducts,user,getSubcategory,getCategory})
     }
 
 }

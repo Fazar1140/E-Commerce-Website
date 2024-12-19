@@ -1,4 +1,4 @@
-const {order_item,users,Sequelize,order_details,payment_detail,products,product_stock} = require('../models')
+const {order_item,users,Sequelize,order_details,payment_detail,products,product_stock,address} = require('../models')
 
 exports.getOrderItem = async(req,res)=>{
     const getOrderItem = await order_item.findAll();
@@ -87,6 +87,7 @@ exports.OrderItemAdminProvider = async(req,res)=>{
     const getProducts = await products.findAll();
     const getProductStock = await product_stock.findAll();
     const getUser = await users.findAll();
-    
-    res.render('AdminOrder',{getUser,getOrderDetail,getProducts,getProductStock,getPaymentDetail})
+    const getAddress = await address.findAll();
+
+    res.render('AdminOrder',{getUser,getOrderDetail,getProducts,getProductStock,getPaymentDetail,getAddress})
 }

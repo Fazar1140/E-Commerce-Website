@@ -37,6 +37,8 @@
                                         <%for (let x = 0 ; x < getUser.length;x++) { %>
                                             <% if(getUser[x].id == getOrderDetail[i].user_id) { %>
                                                 <h5>Dibeli oleh user : <%=getUser[x].username%></h5>
+                                                <p>Alamat : <%=getAddress[x].title%> <%=getAddress[x].address_line%> <%=getAddress[x].country%> <%=getAddress[x].city%> <%=getAddress[x].postal_code%> <%=getAddress[x].landmark%></p>
+                                                <p>nomor telefon : <%=getAddress[x].phone_number%></p>
                                             <% } %>
                                         <% } %>
                                        
