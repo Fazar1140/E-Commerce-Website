@@ -30,7 +30,7 @@ function orderDetails(){
    
   payIncrement = payIncrement + 1;
   return{
-    user_id : faker.number.int({min:1,max:5}),
+    user_id : faker.number.int({min:1,max:4}),
     
     total: payArray[payIncrement-1],
     createdAt:new Date(),

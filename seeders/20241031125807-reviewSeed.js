@@ -24,8 +24,8 @@ function reviewComment(rating){
 function review (){
   let ratingScore = faker.number.int({min:3,max:5});
   return{
-    user_id:Math.floor(Math.random() * (10 - 1) + 1),
-    product_id:Math.floor(Math.random() * (10 - 1) + 1),
+    user_id:Math.floor(Math.random() * (4 - 1) + 1),
+    product_id:Math.floor(Math.random() * (4 - 1) + 1),
     rating:ratingScore,
     comment:reviewComment(ratingScore),
     createdAt: new Date(),

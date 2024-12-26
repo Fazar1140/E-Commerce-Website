@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {products,Sequelze,product_stock,subCategory,category} = require('../models');
+const {products,Sequelze,product_stock,subCategory,category,review,order_details,payment_detail,order_item,users} = require('../models');
 const {Op} = require('sequelize');
 const fs = require('fs');
 
@@ -8,14 +8,19 @@ const subcategory = require('../models/subcategory');
 
 exports.getAllProducts = async(req,res)=>{
     try{ 
-          
+       
         const {token} = req.cookies;
+        let total = 0; 
+        let reviewTotal = 0;
         console.log(req.cookies)
         if(!token){
             const user = {}
+            
             const getProducts = await products.findAll({include:product_stock});
-    
-            res.render('products',{getProducts,user})
+            
+            const getReview = await review.findAll();
+
+            res.render('products',{getProducts,user,getReview,total,reviewTotal})
         }else{
             const decodeInfo = jwt.verify(token,process.env.SECRET_KEY)
 
@@ -33,8 +38,10 @@ exports.getAllProducts = async(req,res)=>{
             const user = req.user
             console.log(user)
             const getProducts = await products.findAll({include:product_stock});
-         
-            res.render('products',{getProducts:getProducts,user})
+            const getReview = await review.findAll();
+ 
+
+            res.render('products',{getProducts:getProducts,user,getReview,total,reviewTotal})
             
         }
     
@@ -54,12 +61,18 @@ exports.getById = async(req,res)=>{
 
         const id = req.params.id;
         const user = {}
+        const getPaymentDetails = {};
+        let found = false;
         const getProducts = await products.findByPk(id,{include:product_stock});
         //res.status(200).send(getProducts)
         const getSubcategory = await subCategory.findByPk(getProducts.category_id);
         const getCategory = await category.findByPk(getSubcategory.parent_id)
-        
-        res.render('product_details',{getProducts,user,getSubcategory,getCategory})
+        const getReview = await review.findAll({where:{product_id:getProducts.id}})
+
+        const getUser = await users.findAll({attributes:{exclude:['password','email','telephone','avatar','isAdmin','isVerified']}})
+       
+
+        res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
       
     }else{
        const decodeInfo = jwt.verify(token,process.env.SECRET_KEY)
@@ -72,16 +85,41 @@ exports.getById = async(req,res)=>{
         else{
             return res.status(401).json({message:'invalid token,please log in again!'})
         }
-    
+     
         const id = req.params.id;
         const user = req.user
-        console.log(req.user)
+        let found = false;
+        console.log('getbyid : ' + user.id)
         const getProducts = await products.findByPk(id,{include:product_stock});
         
         const getSubcategory = await subCategory.findByPk(getProducts.category_id);
         const getCategory = await category.findByPk(getSubcategory.parent_id)
+        const getReview = await review.findAll({where:{product_id:getProducts.id}})
+        const getUser = await users.findAll({attributes:{exclude:['password','email','telephone','avatar','isAdmin','isVerified']}})
+        const getPaymentId = await order_item.findOne({where:{products_id:id}});
+       
+        if(getPaymentId == null){
+            const getPaymentDetails = {};
+            console.log(getPaymentDetails)
+            res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+        }else{
+            const getOrderDetails = await order_details.findOne({where:{user_id:user.id,payment_id:getPaymentId.id}})
+            if(getOrderDetails === null){
+                const getPaymentDetails = {};
+                console.log(getPaymentDetails)
+                res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+            }else{
+                const getPaymentDetails = await payment_detail.findByPk(getOrderDetails.id)
+                console.log(getPaymentDetails)
+                res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+            }
+            
+            
+        }        
         
-        res.render('product_details',{getProducts,user,getSubcategory,getCategory})
+        
+
+         
     }
 
 }
