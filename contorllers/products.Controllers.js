@@ -61,7 +61,9 @@ exports.getById = async(req,res)=>{
 
         const id = req.params.id;
         const user = {}
-        const getPaymentDetails = {};
+        const getPaymentDetails = [{
+            status:'null'
+        }];
         let found = false;
         const getProducts = await products.findByPk(id,{include:product_stock});
         //res.status(200).send(getProducts)
@@ -96,26 +98,46 @@ exports.getById = async(req,res)=>{
         const getCategory = await category.findByPk(getSubcategory.parent_id)
         const getReview = await review.findAll({where:{product_id:getProducts.id}})
         const getUser = await users.findAll({attributes:{exclude:['password','email','telephone','avatar','isAdmin','isVerified']}})
-        const getPaymentId = await order_item.findOne({where:{products_id:id}});
-       
-        if(getPaymentId == null){
-            const getPaymentDetails = {};
-            console.log(getPaymentDetails)
+        const getOrderDetails = await order_details.findAll({ where: {user_id:user.id},include:[{model: order_item,where:{products_id:id}},],});
+        // const getOrderDetail = await order_details.findOne({})
+        console.log(getOrderDetails)
+        if(getOrderDetails.length == 1){
+            const getPaymentDetails = await payment_detail.findAll({where:{order_id:getOrderDetails[0].id}});
             res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
-        }else{
-            const getOrderDetails = await order_details.findOne({where:{user_id:user.id,payment_id:getPaymentId.id}})
-            if(getOrderDetails === null){
-                const getPaymentDetails = {};
-                console.log(getPaymentDetails)
-                res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
-            }else{
-                const getPaymentDetails = await payment_detail.findByPk(getOrderDetails.id)
-                console.log(getPaymentDetails)
-                res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+        }else if(getOrderDetails.length > 1){
+            const getPaymentDetails = [];
+            for(let j = 0 ; j < getOrderDetails.length;j++){
+                const getAllPayment = await payment_detail.findOne({where:{order_id:getOrderDetails[j].id}})
+                getPaymentDetails.push(getAllPayment)
             }
+            res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+        }else if(getOrderDetails.length < 1){
+            const getPaymentDetails = [{status:''}]
+            res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+        }
+         
+      
+       
+
+      
+        // if(getPaymentId == null){
+        //     const getPaymentDetails = {};
+        //     console.log(getPaymentDetails)
+        //     res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+        // }else{
+        //     const getOrderDetails = await order_details.findOne({where:{user_id:user.id,payment_id:getPaymentId.id}})
+        //     if(getOrderDetails === null){
+        //         const getPaymentDetails = {};
+        //         console.log(getPaymentDetails)
+                 
+        //     }else{
+        //         const getPaymentDetails = await payment_detail.findByPk(getOrderDetails.id)
+        //         console.log(getPaymentDetails)
+        //         res.render('product_details',{getProducts,user,getSubcategory,getCategory,getReview,getPaymentDetails,getUser,found})
+        //     }
             
             
-        }        
+        // }        
         
         
 

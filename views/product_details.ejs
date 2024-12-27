@@ -77,7 +77,7 @@
                             <% break %>
                         <%}%>
                     <%}%>
-                    <%if(getPaymentDetails.status === 'DISPATCHED' && found == false){%>
+                    <%if(getPaymentDetails[0].status === 'DISPATCHED' && found == false){%>
                         <form method="POST" action="/Reviews/send/<%=getProducts.id%>">
                             <div class="border border-primary p-2 m-2">
                                 <label for="comment">Review here : </label>
