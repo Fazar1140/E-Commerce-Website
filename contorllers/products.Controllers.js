@@ -191,7 +191,7 @@ exports.patchProduct = async(req,res)=>{
     
             const id = req.params.id
             const {name,description,short_description,cover,category_id} = req.body
-    
+           
             const update = await products.update({
                 name,description,short_description,cover,category_id
             },{where:{id:id}})
@@ -199,7 +199,7 @@ exports.patchProduct = async(req,res)=>{
 
             const getProducts = await products.findByPk(req.params.id,{include:product_stock})
             if(update == 1){
-                    res.render('product_details',{getProducts,user})
+                    res.redirect(`/${id}`)
             }else{
                 res.send({
                     message:`cannot update products, something is wrong with inputing products`
@@ -212,6 +212,7 @@ exports.patchProduct = async(req,res)=>{
 }
 exports.getProductId = async(req,res)=>{
     const getProducts = await products.findByPk(req.params.id)
+    
     const user = req.user 
     res.render('editProductDetails',{getProducts,user})
 }
@@ -235,6 +236,8 @@ exports.searchProduct = async(req,res)=>{
        
     const {token} = req.cookies;
     console.log(req.cookies)
+    const getReview = await review.findAll();
+    let total,reviewTotal;
     if(!token){
         const user = {}
         const getProducts = await products.findAll({include:product_stock,
@@ -244,7 +247,7 @@ exports.searchProduct = async(req,res)=>{
                 }
             }
         })
-        res.render('products',{getProducts:getProducts,user})
+        res.render('products',{getProducts:getProducts,user,getReview,total,reviewTotal})
     }else{
         const decodeInfo = jwt.verify(token,process.env.SECRET_KEY)
 
@@ -265,7 +268,7 @@ exports.searchProduct = async(req,res)=>{
                 }
             }
         })
-        res.render('products',{getProducts:getProducts,user})
+        res.render('products',{getProducts:getProducts,user,getReview,total,reviewTotal})
         
     }
 }
