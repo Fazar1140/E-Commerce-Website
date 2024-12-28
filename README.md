@@ -8,7 +8,7 @@ Penggunaan dbdiagram.io untuk memberikan penampilan awal database yang akan kita
 
 ![alt text](https://github.com/Fazar1140/E-Commerce-Website/blob/checkpoint-1/Ecommerce.png)
 
-## Dengan fitur CRUD didalamnya
+Dengan fitur CRUD didalamnya
 
 ## Project Setup 
 ### yang dibutuhkan 
