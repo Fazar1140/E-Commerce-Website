@@ -21,5 +21,61 @@ Dengan fitur CRUD didalamnya
 ### Peringatan! projek komplit terdapat pada checkpoint ke 6 
 ```
  git clone --single-branch --branch checkpoint-6 https://github.com/Fazar1140/E-Commerce-Website.git
+```
+## Navigasi direktori 
+```
+ cd E-Commerce-Website
+```
 
- 
+## Install npm 
+buka terminal vs code dan ketik 
+
+```
+ npm instsall
+```
+
+
+## atur configurasi sequelize-cli 
+
+```
+{
+  "development": {
+    "username": "your-postgres-account",
+    "password": "your-password",
+    "database": "Market",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+
+```
+
+## atur environtment variabel 
+```
+PORT = 'YOUR_PORT'
+SECRET_KEY = 'YOUR_SECRET_KEY'
+PRODUCTION = 'true'
+COOKIE_EXPIRATION_DAYS = 1
+PAYPAL_CLIENT_ID = 'YOUR_PAYPAL_CLIENT_ID'
+PAYPAL_CLIENT_SECRET = 'YOUR_PAYPAL_CLIENT_ID'
+
+```
+
+> [!NOTE]  
+> jika tidak memiliki akun paypal gunakan COD
+
+
