@@ -92,6 +92,8 @@ PAYPAL_CLIENT_SECRET = 'YOUR_PAYPAL_CLIENT_ID'
 ```
   npx sequelize-cli db:seed:all
 ```
+> [!NOTE]
+> setiap akun memiliki password 12345678
 
 ### jika sudah seeding data jalankan aplikasi 
 ```
