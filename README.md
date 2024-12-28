@@ -76,6 +76,26 @@ PAYPAL_CLIENT_SECRET = 'YOUR_PAYPAL_CLIENT_ID'
 ```
 
 > [!NOTE]  
-> jika tidak memiliki akun paypal gunakan COD
+> jika tidak memiliki akun paypal gunakan COD dalam payment
+
+## Buat database menggunakan sequelize-cli 
+```
+  npx sequelize-cli db:create
+```
+
+## Migrasi skema database sequelize-cli 
+```
+  npx sequelize-cli db:migrate
+```
+
+### Seed atau membuat data ke dalam sequelize-cli
+```
+  npx sequelize-cli db:seed:all
+```
+
+### jika sudah seeding data jalankan aplikasi 
+```
+ npm run start
+```
 
 
